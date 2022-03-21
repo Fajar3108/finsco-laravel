@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function() {
         Route::get('transactions', 'index')->name('transactions.index');
         Route::get('transactions/create', 'create')->name('transactions.create');
         Route::post('transactions', 'store')->name('transactions.store');
+        Route::get('transactions/export', 'export')->name('transactions.export');
     });
 });
 

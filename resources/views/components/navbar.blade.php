@@ -19,10 +19,10 @@
           <a class="nav-link dropdown-toggle @if(request()->segment(1) == 'transactions') active @endif" role="button" data-bs-toggle="dropdown" aria-expanded="false">Transactions</a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="transactionDropdown">
             @if (auth()->user()->role->slug == 'admin' || auth()->user()->role->slug == 'bank')
-            <li><a href="{{ route('transactions.index', "top-up") }}" class="dropdown-item">Top Up</a></li>
-            <li><a href="{{ route('transactions.index', "withdraw") }}" class="dropdown-item">Withdraw</a></li>
+            <li><a href="{{ route('transactions.index', "type=top-up") }}" class="dropdown-item">Top Up</a></li>
+            <li><a href="{{ route('transactions.index', "type=withdraw") }}" class="dropdown-item">Withdraw</a></li>
             @else
-            <li><a href="{{ route('transactions.index', "purchase") }}" class="dropdown-item">Purchase</a></li>
+            <li><a href="{{ route('transactions.index', "type=purchase") }}" class="dropdown-item">Purchase</a></li>
             @endif
           </ul>
         </li>

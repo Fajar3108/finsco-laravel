@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('product_id')->nullable()->constrained('products')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->foreignId('type_id')->constrained('transaction_types');
             $table->foreignId('status_id')->constrained('transaction_statuses');
+            $table->string('code')->unique();
             $table->integer('amount');
             $table->text('description')->nullable();
             $table->timestamps();

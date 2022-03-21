@@ -28,7 +28,7 @@
                 <th scope="row">{{ ($products ->currentpage()-1) * $products ->perpage() + $loop->index + 1 }}</th>
                 <td><p class="text-limit-1">{{ $product->name }}</p></td>
                 <td><p class="text-limit-1">{{ $product->description }}</p></td>
-                <td>Rp{{ number_format($product->price, '0', ',', '.') }}</td>
+                <td>{{ CurrencyHelper::rupiah($product->price) }}</td>
                 <td>{{ number_format($product->stock, '0', ',', '.') }}</td>
                 <td>
                     <form action="{{ route('products.delete', $product->id) }}" method="POST" class="d-flex">
