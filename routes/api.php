@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\{ProductController, AuthController};
+use App\Http\Controllers\Api\{ProductController, AuthController, CartController};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,10 +22,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('login', [AuthController::class, 'login']);
 
 Route::middleware(['auth:sanctum'])->group(function(){
-    Route::post('', [AuthController::class, 'logout']);
+    Route::post('logout', [AuthController::class, 'logout']);
 
     Route::controller(ProductController::class)->prefix('products')->group(function(){
         Route::get('/', 'index');
         Route::get('/{product}', 'show');
+    });
+
+    Route::controller(CartController::class)->prefix('carts')->group(function(){
+        Route::get('/', 'index');
+        Route::post('/{product}', 'store');
     });
 });

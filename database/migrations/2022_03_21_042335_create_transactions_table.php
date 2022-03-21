@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->integer('amount');
             $table->text('description')->nullable();
+            $table->integer('qty')->nullable();
             $table->timestamps();
         });
     }
