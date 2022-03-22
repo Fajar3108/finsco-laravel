@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Helpers\ResponseHelper;
+use App\Helpers\TransactionHelper;
 use App\Http\Controllers\Controller;
-use App\Models\Cart;
-use App\Models\Product;
+use App\Models\{Cart, Product};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,11 +15,7 @@ class CartController extends Controller
     {
         $carts = Cart::with('product')->where('user_id', $request->user()->id)->get();
 
-        $total = 0;
-
-        foreach($carts as $cart) {
-            $total += $cart->qty * $cart->product->price;
-        }
+        $total = TransactionHelper::total_price($carts);
 
         return ResponseHelper::success([
             'carts' => $carts,
@@ -34,6 +30,10 @@ class CartController extends Controller
         ]);
 
         if($validator->fails()) return ResponseHelper::error($validator->errors(), 'Product Not Found', 404);
+
+        $product = Product::find($request->product_id);
+
+        if ($product->stock <= 0) return ResponseHelper::error([], 'Stock less then 0', 400);
 
         $product_exist = Cart::where('user_id', $request->user()->id)->where('product_id', $request->product_id)->first();
 
@@ -62,6 +62,8 @@ class CartController extends Controller
         if ($validator->fails()) return ResponseHelper::error($validator->errors(), 'Failed to update qty', 400);
 
         $cart = Cart::where('user_id', $request->user()->id)->where('product_id', $request->product_id)->first();
+
+        if ($cart->product->stock < $request->qty) return ResponseHelper::error([], 'Stock is not enough', 400);
 
         $cart->update([
             'qty' => $request->qty,

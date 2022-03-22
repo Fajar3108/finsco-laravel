@@ -9,7 +9,7 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['receiver_id', 'sender_id', 'confirmed_by_id', 'product_id', 'type_id', 'status_id', 'amount', 'description', 'code'];
+    protected $fillable = ['receiver_id', 'sender_id', 'confirmed_by_id', 'product_id', 'type_id', 'status_id', 'amount', 'description', 'code', 'qty'];
 
     public function confirmed_by()
     {

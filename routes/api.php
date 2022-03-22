@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\{ProductController, AuthController, CartController};
+use App\Http\Controllers\Api\{ProductController, AuthController, CartController, TransactionController};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,5 +32,11 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::controller(CartController::class)->prefix('carts')->group(function(){
         Route::get('/', 'index');
         Route::post('/', 'store');
+        Route::put('/', 'update');
     });
+
+    Route::controller(TransactionController::class)->group(function(){
+        Route::post('/purchase', 'purchase');
+    });
+
 });

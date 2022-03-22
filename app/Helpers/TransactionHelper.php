@@ -34,4 +34,12 @@ class TransactionHelper {
 
         return redirect()->route('transactions.index', 'type=' . 'top-up')->with('success', 'Top Up Success');
     }
+
+    public static function total_price($carts) {
+        $total = 0;
+        foreach($carts as $cart) {
+            $total += $cart->qty * $cart->product->price;
+        }
+        return $total;
+    }
 }
