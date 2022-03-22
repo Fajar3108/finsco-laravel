@@ -19,6 +19,7 @@ class AuthController extends Controller
         return ResponseHelper::success([
             'token' => $user->createToken('auth_token')->plainTextToken,
             'token_type' => 'Bearer',
+            'user' => $user,
         ], 'Login Success');
     }
 
