@@ -19,7 +19,13 @@ class TransactionController extends Controller
         $transactions = Transaction::whereHas('type', function(Builder $query){
             global $request;
             $query->where('slug', $request->type);
-        })->latest()->paginate(20);
+        });
+
+        if ($request->type == 'purchase') {
+            $transactions->where('receiver_id', auth()->user()->id);
+        }
+
+        $transactions = $transactions->latest()->paginate(10);
 
         return view('transactions.index', compact('transactions'));
     }

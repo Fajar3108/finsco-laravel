@@ -21,6 +21,8 @@
 
     @if ($type->slug == 'top-up')
         @include('transactions.partials.top-up-table')
+    @elseif($type->slug == 'purchase')
+        @include('transactions.partials.purchase-table')
     @endif
 
 
