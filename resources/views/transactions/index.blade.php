@@ -9,7 +9,9 @@
     <div class="d-flex justify-content-between align-items-center mt-3">
         <h1>{{ $type->name }}</h1>
         <div>
+            @if ($type->slug !== 'purchase')
             <a href="{{ route('transactions.create', 'type=' . $type->slug) }}" class="btn btn-primary">Add</a>
+            @endif
             <a href="{{ route('transactions.export', 'type=' . $type->slug) }}" class="btn btn-info">Export</a>
         </div>
     </div>
