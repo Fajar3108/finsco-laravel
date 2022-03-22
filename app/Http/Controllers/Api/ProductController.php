@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::select('name', 'slug', 'stock', 'price', 'image')->latest()->orderBy('stock', 'DESC')->paginate(2);
+        $products = Product::select('name', 'slug', 'stock', 'price', 'image')->latest()->orderBy('stock', 'DESC')->paginate(12);
 
         return ResponseHelper::paginate($products, 'Get All Products');
     }
