@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{AuthController, ProductController, TransactionController, UserController};
+use App\Http\Controllers\{AuthController, CartController, ProductController, TransactionController, UserController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,7 +24,19 @@ Route::middleware('auth')->group(function() {
         return view('home');
     })->name('home');
 
+    Route::get('/home', function(){
+        return view('home-customer', [
+            'products' => \App\Models\Product::latest()->paginate(12)
+        ]);
+    })->name('home.customer');
+
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::controller(CartController::class)->group(function(){
+        Route::post('/carts', 'store')->name('carts.store');
+        Route::get('/carts', 'index')->name('carts.index');
+        Route::delete('/carts/{cart}', 'destroy')->name('carts.delete');
+    });
 
     Route::controller(UserController::class)->group(function() {
         Route::get('users', 'index')->name('users.index');
@@ -46,6 +58,7 @@ Route::middleware('auth')->group(function() {
 
     Route::controller(TransactionController::class)->group(function() {
         Route::get('transactions', 'index')->name('transactions.index');
+        Route::get('transactions/history', 'history')->name('transactions.history');
         Route::get('transactions/create', 'create')->name('transactions.create');
         Route::post('transactions', 'store')->name('transactions.store');
         Route::get('transactions/export', 'export')->name('transactions.export');

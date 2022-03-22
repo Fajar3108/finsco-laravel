@@ -20,7 +20,6 @@
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="transactionDropdown">
             @if (auth()->user()->role->slug == 'admin' || auth()->user()->role->slug == 'bank')
             <li><a href="{{ route('transactions.index', "type=top-up") }}" class="dropdown-item">Top Up</a></li>
-            <li><a href="{{ route('transactions.index', "type=withdraw") }}" class="dropdown-item">Withdraw</a></li>
             @else
             <li><a href="{{ route('transactions.index', "type=purchase") }}" class="dropdown-item">Purchase</a></li>
             @endif
@@ -34,7 +33,7 @@
         @endif
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{ auth()->user()->name }}
+            {{ auth()->user()->name }} ({{ CurrencyHelper::rupiah(auth()->user()->balance) }})
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <li>
