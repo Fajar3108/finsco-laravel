@@ -32,7 +32,7 @@ class ProductController extends Controller
             'name' => $request->name,
             'slug' => Str::slug($request->name) . '-' . Product::latest()->first()->id + 1,
             'description' => $request->description,
-            'image' => $image,
+            'image' => asset('storage/' . $image),
             'price' => $request->price,
             'stock' => $request->stock,
         ]);

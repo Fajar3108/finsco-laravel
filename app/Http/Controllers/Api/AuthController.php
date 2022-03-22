@@ -20,7 +20,7 @@ class AuthController extends Controller
             'token' => $user->createToken('auth_token')->plainTextToken,
             'token_type' => 'Bearer',
             'user' => $user,
-        ], 'Login Success');
+        ], 'Login Success');    
     }
 
     public function logout()
